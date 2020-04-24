@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}   
+         
+{% form_theme formModifPage 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+<div class = "jumbotron">
+    <h2> MODIFICATION de la page </h2>
+</div>
+
+{{ form_start(formModifPage) }}
+<div class="form-group">
+
+        {{ form_label(formModifPage.titre) }}
+
+        <div class="col-sm-4 col-xs-8 small-spacer">
+
+            {{ form_widget(formModifPage.titre) }}
+
+        </div>
+
+        <div class="col-xs-12">
+
+            {{ form_errors(formModifPage.titre) }}
+
+        </div>
+
+    </div>
+
+    <div class="form-group">
+
+        {{ form_label(formModifPage.auteur) }}
+
+        <div class="col-sm-4 col-xs-8 small-spacer">
+
+            {{ form_widget(formModifPage.auteur) }}
+
+        </div>
+
+        <div class="col-xs-12">
+
+            {{ form_errors(formModifPage.auteur) }}
+
+        </div>
+
+    </div>
+
+    <div class="form-group">
+
+        {{ form_label(formModifPage.contenu) }}
+
+        <div class="col-sm-4 col-xs-8 small-spacer">
+
+            {{ form_widget(formModifPage.contenu) }}
+
+        </div>
+
+        <div class="col-xs-12">
+
+            {{ form_errors(formModifPage.contenu) }}
+
+        </div>
+
+    </div>
+
+    <div class="form-group">
+
+        {{ form_label(formModifPage.categorie) }}
+
+        <div class="col-sm-4 col-xs-8 small-spacer">
+
+            {{ form_widget(formModifPage.categorie) }}
+
+        </div>
+
+        <div class="col-xs-12">
+
+            {{ form_errors(formModifPage.categorie) }}
+
+        </div>
+
+    </div>
+    
+    <div class="form-group">
+
+        {{ form_label(formModifPage.fichier) }}
+
+    <div class="col-sm-4 col-xs-8 small-spacer">
+
+    {{ form_widget(formModifPage.fichier) }}
+
+    </div>
+
+    <div class="col-xs-12">
+
+    {{ form_errors(formModifPage.fichier) }}
+
+    </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-success">envoyer</button>
+
+    {{ form_end(formModifPage) }}
+
+{% endblock %}

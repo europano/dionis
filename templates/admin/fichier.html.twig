@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des fichiers{% endblock %}
+
+{% block body %}
+     
+
+
+<table>
+<tr>
+<th>id</th>
+<th>titre</th>
+</tr>
+
+        {% for fichier in fichiers %}
+<tr>
+<td>{{fichier.id}}</td>
+<td>{{fichier.contratType}}</td>
+
+    
+
+                </tr>
+            
+        {% endfor %}
+            </table>            
+        
+        </div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Calipso{% endblock %}
+
+{% block body %}
+    <article>
+    <div>
+    <p>Numero de la page: {{page.id}}</p>
+
+    <h2>{{page.titre}}</h2>
+
+    <p>Categorie : {{page.categorie.titre}} </p>
+
+    <!-- VBE -->
+    <p>Page parent : {{ page.parent.titre }}</p>
+
+    <p>contenu: </p>
+    {{page.contenu}}
+    <p>écrit par:</p>
+        {{page.auteur}}
+    <p>Date de creation de la page:</p>
+        {{page.createdAt | date('d/m/Y h:i ')}}
+    <p>Date de modification de la page:</p>
+        {{page.jourAt | date('d/m/Y h:i ')}}
+            </div>
+       </article>
+{% endblock %}
