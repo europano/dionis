@@ -53,12 +53,14 @@ class Page
      */
     private $fichier;
 
+    // VBE
     /**
      * @var Page
      * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="enfants")
      */
     private $parent;
 
+    // VBE
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="parent")
@@ -190,6 +192,7 @@ class Page
         return $this->enfants;
     }
 
+    // VBE
     public function addEnfant(self $enfant): self
     {
         if (!$this->enfants->contains($enfant)) {
@@ -199,6 +202,7 @@ class Page
         return $this;
     }
 
+    // VBE
     public function removeEnfant(self $enfant): self
     {
         if ($this->enfants->contains($enfant)) {
