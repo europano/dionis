@@ -100,13 +100,12 @@ class AdminController extends AbstractController
             /** @var Page $page */
             $page = $form->getData();
 
-
             /** @var UploadedFile $file */
-            $file = $page->getFichier();
-
-            $fileName = md5(uniqid()).'.'.$file->guessExtension();
-
-            $file->move( '../uploads',   $fileName);
+            if(null !== $page->getFichier()){
+                $file = $page->getFichier();
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                $file->move( '../uploads',   $fileName);
+            }
 
             $page->setJourAt(new \DateTime());
             $manager->persist($page);
@@ -119,7 +118,7 @@ class AdminController extends AbstractController
                'formModifPage' => $form->createView()
                ]);
     }
-    
+
     /**
     * @Route("/admin/page/delete/{id}", name="admin.page.sup")
          * @param Request $request

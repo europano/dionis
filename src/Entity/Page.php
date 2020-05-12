@@ -53,14 +53,12 @@ class Page
      */
     private $fichier;
 
-    // VBE
     /**
      * @var Page
      * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="enfants")
      */
     private $parent;
 
-    // VBE
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="parent")
