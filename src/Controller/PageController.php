@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PageController extends AbstractController
 {
     /**
-     * @Route("/page/index")
+     * @Route("/page2/index", name="page")
      *
      * @param Request $request
      * @param PaginatorInterface $paginator
@@ -23,13 +23,13 @@ class PageController extends AbstractController
      */
      public function index(Request $request, ArborescenceBS $arborescenceBS)
     {
-        $arborescence = $arborescenceBS->arbre();
+        $arborescences = $arborescenceBS->arbre();
 
-        dump($arborescence);
+   // dump($arborescence);die;
 
         return $this->render('page/index.html.twig', [
 
-                'arborescence'=>$arborescence
+                'arborescences'=>$arborescences
             ]);
     }
 

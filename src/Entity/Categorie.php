@@ -11,6 +11,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Categorie
 {
+    const A_LA_UNE = 'À la une';
+    const VIE_DES_PROJETS = 'Vie des projets';
+    const AGENDA = 'Agenda';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -32,6 +36,7 @@ class Categorie
     {
         $this->pages = new ArrayCollection();
     }
+
     public function __toString()
     {
         return $this->titre;
@@ -84,4 +89,5 @@ class Categorie
 
         return $this;
     }
+
 }

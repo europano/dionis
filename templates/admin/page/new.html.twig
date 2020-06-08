@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+	{% include('admin/page/_menu.html.twig') %}
+{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="col-4 offset-2">
+
+			<div class="vie-des-projets">
+
+				<h2 class="spacer">Creation d'une nouvelle page</h2>
+
+			    {% include('admin/page/_form.html.twig') %}
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

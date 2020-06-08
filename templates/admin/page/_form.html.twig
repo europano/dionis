@@ -1,0 +1,56 @@
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{{ form_start(form) }}
+
+    <div class="form-group">
+        {{ form_label(form.titre) }}
+        {{ form_widget(form.titre) }}
+        {{ form_errors(form.titre) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_label(form.contenu) }}
+		{{ form_widget(form.contenu) }}
+		{{ form_errors(form.contenu) }}
+	</div>
+
+    <div class="form-group">
+        {{ form_label(form.parent) }}
+        {{ form_widget(form.parent) }}
+        {{ form_errors(form.parent) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.categorie) }}
+        {{ form_widget(form.categorie) }}
+        {{ form_errors(form.categorie) }}
+    </div>
+
+	<div class="form-group">
+        {{ form_label(form.auteur) }}
+        {{ form_widget(form.auteur) }}
+        {{ form_errors(form.auteur) }}
+    </div>
+
+    <div class="form-group d-none">
+        {{ form_label(form.createdAt) }}
+        {{ form_widget(form.createdAt) }}
+        {{ form_errors(form.createdAt) }}
+    </div>
+
+    <div class="form-group d-none">
+        {{ form_label(form.jourAt) }}
+        {{ form_widget(form.jourAt) }}
+        {{ form_errors(form.jourAt) }}
+    </div>
+
+    <div class="row">
+		<div class="col-6">
+			<a href="{{ path('app_admin_page_index') }}" class="btn btn-default" >Annuler</a>
+		</div>
+		<div class="col-6 text-right">
+			<button type="submit" class="btn btn-success">Envoyer</button>
+		</div>
+	</div>
+
+{{ form_end(form) }}

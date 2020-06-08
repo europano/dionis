@@ -36,9 +36,7 @@ class ArborescenceBS
 
         // On boucle sur les pages top niveau
         foreach ($pagesSansParent as $page) {
-
             $this->branche($page);
-
         }
 
         return $this->arbre;
@@ -50,7 +48,7 @@ class ArborescenceBS
      * @param Page $page
      * @param $niveau
      */
-    private function branche(Page $page, $niveau = 0): void
+    private function branche(Page $page, $niveau = 0 ): void
     {
         $this->arbre[] = [
             'niveau' => $niveau,
@@ -61,7 +59,7 @@ class ArborescenceBS
         foreach ($page->getEnfants() as $pageEnfant) {
 
             // Pour chaque page enfant, on va également parcourir les sous pages.
-            $this->branche($pageEnfant, $niveau++);
+            $this->branche($pageEnfant, $niveau + 1 );
         }
     }
 }

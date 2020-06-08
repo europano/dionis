@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DIONIS TV{% endblock %}
+
+{% block header %}
+    <div class="actualites mt-3">
+        <div class="row">
+            <div class="col-9">
+
+                {% set page = aLaUne|first %}
+
+                <h2>{{ page.titre }}</h2>
+
+                {# NOTE : ici on utilise le filtre "raw" pour que les données HTML de "contenu" soient affiché tel quelle. sinon le HTML ne sera plus interprété mais affiché sur la page. #}
+
+                {{ page.contenu|raw }}
+
+                </div>
+                <div class="col-3 text-right">
+                    <img src="img/actu.png" class="w-100" alt="DIONIS">
+                </div>
+
+            </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+
+        <div class="col-8">
+            <div class="vie-des-projets">
+
+                <h2 class="text-right">La vie des projets</h2>
+                <div class="row mt-4">
+                    {% for page in vieDesProjets|slice(0, 3) %}
+
+                        <div class="col-4">
+                            <img src="img/logo.png" class="w-100" alt="DIONIS">
+                            <H3 class="mt-4">{{ page.titre }}</H3>
+                            <p>
+                                {{ page.contenu|raw }}
+                            </p>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="agenda text-right">
+                <h2 class="mb-3">Agenda</h2>
+                {% for page in agenda|slice(0, 3) %}
+
+                    <div>
+                        <h3>{{ page.jourAt|date('d/m/Y') }}</h3>
+                        <p>
+                            {{ page.titre }}
+                        </p>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

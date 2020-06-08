@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block header %}
+    {% include('admin/page/_menu.html.twig') %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-8 offset-2">
+
+            <div class="vie-des-projets">
+
+                <h2>Liste des pages</h2>
+
+                <div class="row spacer">
+                    <div class="col-12 text-right">
+                        <a href="{{ path('app_admin_page_new') }}"><button class="btn btn-default">NOUVELLE PAGE</button></a>
+                    </div>
+                </div>
+                <div class="table-responsive spacer">
+                    <table class="table table-crud">
+                        <thead class="bg-gris-6">
+                            <tr>
+                                <th>TITRE</th>
+                                <th>DATE</th>
+                                <th>AUTEUR</th>
+                                <th></th>
+                            </tr>
+                         </thead>
+                         <tbody>
+                             {% for branche in arbre %}
+                                 <tr>
+                                    <td>
+                                        <!-- ├── -->
+                                        {% for i in range(0, branche.niveau) %}{% if i != 0 %}<span class="ml-3">&nbsp;</span>{% endif %}{% endfor %}
+                                        <a href="{{ path('app_admin_page_edit', {'id': branche.page.id}) }}">{{ branche.page.titre }}</a>
+                                    </td>
+                                    <td>{{ branche.page.jourAt|date('d/m/Y') }}</td>
+                                    <td>{{ branche.page.auteur }}</td>
+                                    <td class="text-right">
+
+                                        {# NOTE : la suppression d'une page n'est possible que si il n'y a pas de page enfant #}
+                                        {% if branche.page.enfants|length == 0 %}
+                                            <a href="{{ path('app_admin_page_delete', {'id': branche.page.id}) }}">supprimer</a>
+                                        {% endif %}
+                                    </td>
+                                 </tr>
+                             {% endfor %}
+                         </tbody>
+
+                     </table>
+                 </div>
+
+            </div>
+
+          </div>
+    </div>
+{% endblock %}

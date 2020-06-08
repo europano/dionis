@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Page;
+use App\Entity\Categorie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -26,7 +27,52 @@ class PageRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->where('p.parent IS NULL')
-            ->orderBy('p.id', 'ASC')
+            ->orderBy('p.titre', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return Page[] Returns an array of Page objects
+     */
+    public function findPagesALaUne()
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.parent', 'parent')
+            ->join('parent.categorie', 'c')
+            ->where('c.titre = :aLaUne')->setParameter('aLaUne', Categorie::A_LA_UNE)
+            ->orderBy('p.titre', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return Page[] Returns an array of Page objects
+     */
+    public function findPagesVieDesProjets()
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.parent', 'parent')
+            ->join('parent.categorie', 'c')
+            ->where('c.titre = :vieDesProjets')->setParameter('vieDesProjets', Categorie::VIE_DES_PROJETS)
+            ->orderBy('p.titre', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return Page[] Returns an array of Page objects
+     */
+    public function findPagesAgenda()
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.parent', 'parent')
+            ->join('parent.categorie', 'c')
+            ->where('c.titre = :agenda')->setParameter('agenda', Categorie::AGENDA)
+            ->orderBy('p.titre', 'ASC')
             ->getQuery()
             ->getResult()
         ;
@@ -48,7 +94,9 @@ class PageRepository extends ServiceEntityRepository
         ;
     }
     */
-
+    /**
+    * @return Page[] Returns an array of Page objects
+    */
     /*
     public function findOneBySomeField($value): ?Page
     {
@@ -60,4 +108,34 @@ class PageRepository extends ServiceEntityRepository
         ;
     }
     */
-}
+    /**
+     * @return Page[] Returns an array of Page objects
+     */
+    /*
+    public function findPagesSansParent()
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.page_parent IS NULL')
+            ->orderBy('p.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+        }
+        */
+
+        /**
+         * @return Page[] Returns an array of Page objects
+         */
+        // requete qui transforme le dql ensql
+
+       public function findLastPages()
+    {
+        $query= "select * from page order by created_at desc limit 3";
+              $stmt = $this->getEntityManager()
+              ->getConnection()->prepare($query);
+                $stmt->execute();
+              return $stmt->fetchAll();
+                ;
+            }
+
+     }

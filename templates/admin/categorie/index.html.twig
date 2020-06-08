@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block header %}
+    {% include('admin/categorie/_menu.html.twig') %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-8 offset-2">
+
+            <div class="vie-des-projets">
+
+                <h2>Liste des catégories</h2>
+
+                <div class="row spacer">
+                    <div class="col-12 text-right">
+                        <a href="{{ path('app_admin_categorie_new') }}"><button class="btn btn-default">NOUVELLE CATÉGORIE</button></a>
+                    </div>
+                </div>
+                <div class="table-responsive spacer">
+                    <table class="table table-crud">
+                        <thead class="bg-gris-6">
+                            <tr>
+                                <th>CATÉGORIE</th>
+                                <th></th>
+                            </tr>
+                         </thead>
+                         <tbody>
+                             {% for categories in categories %}
+                                 <tr>
+                                    <td>
+                                        <a href="{{ path('app_admin_categorie_edit', {'id': categories.id}) }}">{{ categories.titre }}</a>
+                                    </td>
+                                    <td class="text-right">
+                                        <a href="{{ path('app_admin_categorie_delete', {'id': categories.id}) }}">supprimer</a>
+                                    </td>
+                                 </tr>
+                             {% endfor %}
+                         </tbody>
+
+                     </table>
+                 </div>
+
+            </div>
+
+          </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{{ form_start(form) }}
+
+    <div class="form-group">
+        {{ form_label(form.titre) }}
+        {{ form_widget(form.titre) }}
+        {{ form_errors(form.titre) }}
+    </div>
+
+    <button type="submit" class="btn btn-success">envoyer</button>
+
+{{ form_end(form) }}

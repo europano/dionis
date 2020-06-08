@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,26 +50,29 @@ class Page
     private $categorie;
 
     /**
-     * @var UploadedFile
-     */
-    private $fichier;
-
-    /**
-     * @var Page
-     * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="enfants")
+    * @var page
+    * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="enfants")
      */
     private $parent;
 
     /**
-     * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="parent")
+    * var ArrayCollection
+    * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="parent")
      */
     private $enfants;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Document", mappedBy="page")
+     */
+    private $documents;
+
     public function __construct()
     {
+
         $this->enfants = new ArrayCollection();
+        $this->documents = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -147,66 +151,81 @@ class Page
         return $this;
     }
     /**
-     * @return UploadedFile
+     * @return page $parent
      */
-    public function getFichier()
-    {
-        return $this->fichier;
-    }
 
+        public function getParent(): ?page
+        {
+            return $this->parent;
+        }
     /**
-     * @param \Symfony\Component\HttpFoundation\File\UploadedFile $fichier
-     */
-    public function setFichier($fichier): self
-    {
-        $this->fichier = $fichier;
+    * @param page $parent
+    */
 
-        return $this;
-    }
+        public function setParent( $parent): self
+        {
+            $this->parent = $parent;
 
-    /**
-     * @return Page
-     */
-    public function getParent(): ?Page
-    {
-        return $this->parent;
-    }
-
-    /**
-     * @param Page $parent
-     */
-    public function setParent($parent): self
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|self[]
-     */
-    public function getEnfants(): Collection
-    {
-        return $this->enfants;
-    }
-
-    // VBE
-    public function addEnfant(self $enfant): self
-    {
-        if (!$this->enfants->contains($enfant)) {
-            $this->enfants[] = $enfant;
+            return $this;
         }
 
-        return $this;
-    }
+        /**
+         * @return Collection|self[]
+         */
+        public function getEnfants(): Collection
+        {
+            // NOTE : c'est un critère de recherche pour trié par défaut les pages enfants par titre
+            $orderBy = (Criteria::create())->orderBy(['titre' => Criteria::ASC]);
 
-    // VBE
-    public function removeEnfant(self $enfant): self
+            return $this->enfants->matching($orderBy);
+        }
+
+        public function addEnfant(self $enfant): self
+        {
+            if (!$this->enfants->contains($enfant)) {
+                $this->enfants[] = $enfant;
+            }
+
+            return $this;
+        }
+
+        public function removeEnfant(self $enfant): self
     {
         if ($this->enfants->contains($enfant)) {
             $this->enfants->removeElement($enfant);
         }
 
-        return $this;
+            return $this;
     }
+
+        /**
+         * @return Collection|Document[]
+         */
+        public function getDocuments(): Collection
+        {
+            return $this->documents;
+        }
+
+        public function addDocument(Document $document): self
+        {
+            if (!$this->documents->contains($document)) {
+                $this->documents[] = $document;
+                $document->setPage($this);
+            }
+
+            return $this;
+        }
+
+        public function removeDocument(Document $document): self
+        {
+            if ($this->documents->contains($document)) {
+                $this->documents->removeElement($document);
+                // set the owning side to null (unless already changed)
+                if ($document->getPage() === $this) {
+                    $document->setPage(null);
+                }
+            }
+
+            return $this;
+        }
 }
