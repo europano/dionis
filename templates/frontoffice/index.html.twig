@@ -9,18 +9,20 @@
 
                 {% set page = aLaUne|first %}
 
-                <h2>{{ page.titre }}</h2>
+                {% if page %}
+                    <h2>{{ page.titre }}</h2>
 
-                {# NOTE : ici on utilise le filtre "raw" pour que les données HTML de "contenu" soient affiché tel quelle. sinon le HTML ne sera plus interprété mais affiché sur la page. #}
+                    {# NOTE : ici on utilise le filtre "raw" pour que les données HTML de "contenu" soient affiché tel quelle. sinon le HTML ne sera plus interprété mais affiché sur la page. #}
 
-                {{ page.contenu|raw }}
-
-                </div>
-                <div class="col-3 text-right">
-                    <img src="img/actu.png" class="w-100" alt="DIONIS">
-                </div>
+                    {{ page.contenu|raw }}
+                {% endif %}
 
             </div>
+            <div class="col-3 text-right">
+                <img src="img/actu.png" class="w-100" alt="DIONIS">
+            </div>
+
+        </div>
     </div>
 {% endblock %}
 
