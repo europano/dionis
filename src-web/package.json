@@ -49,7 +49,6 @@
     "markdown-it": "^5.0.0",
     "moment": "^2.22.2",
     "npm-shrinkwrap": "^200.4.0",
-    "respond": "0.9.0",
-    "ckeditor": "4.0.0"
+    "respond": "0.9.0"
   }
 }

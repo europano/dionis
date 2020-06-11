@@ -68,6 +68,7 @@ gulp.task('styles', function () {
             .pipe($.cleanCss())
             .pipe($.sourcemaps.write('/'))
             .pipe(gulp.dest(src + 'css/'))
+            .pipe(gulp.dest(symfonyWeb + 'css/'))
             .pipe(browserSync.stream())
             .on('end', function () {
                 $.util.log($.util.colors.yellow('La tache CSS est terminee.'));
@@ -95,6 +96,7 @@ gulp.task('scripts', function () {
             .pipe($.concat('amelipro.min.js'))
             .pipe($.sourcemaps.write('/'))
             .pipe(gulp.dest(src + 'js/'))
+            .pipe(gulp.dest(symfonyWeb + 'js/'))
             .pipe(browserSync.stream())
             .on('end', function () {
                 $.util.log($.util.colors.yellow('La tache JavaScript est terminee.'));

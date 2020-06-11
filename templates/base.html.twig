@@ -2,72 +2,67 @@
 <html lang="fr">
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>DIONIS TV</title>
-	{% block stylesheets %}
-		<link href="{{ asset('css/amelipro.min.css') }}" rel="stylesheet" />
-	{% endblock %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DIONIS TV</title>
+
+    {% block stylesheets %}
+        <link href="{{ asset('css/amelipro.min.css') }}" rel="stylesheet"/>
+    {% endblock %}
 </head>
 <body>
 
-    <main class="main-large">
+<main class="main-large">
 
-	<header>
-		<div class="row">
-			<div class="col-6"><a href="{{ path('frontoffice') }}"><img src="{{ asset('img/logo.png') }}" class="mt-3" width="200" alt="DIONIS"></a></div>
-			<div class="col-6">
-
-				{% block header %}{% endblock %}
-
-			</div>
-		</div>
-
-	</header>
+    <header>
+        <div class="row">
+            <div class="col-6"><a href="{{ path('frontoffice') }}"><img src="{{ asset('img/logo.png') }}" class="mt-3"
+                                                                        width="200" alt="DIONIS"></a></div>
+            <div class="col-6">
+                {% block header %}{% endblock %}
+            </div>
+        </div>
+    </header>
 
     <article>
-
         {% block body %}{% endblock %}
-
     </article>
-
 
     <a href="page.html" class="btn-menu" data-toggle="collapse" data-target=".menu"></a>
 
     <div class="menu collapse">
-
-      <div class="row">
-        <div class="col-9">MENU</div>
-        <div class="col-3 text-right">
-          <a href="#" data-toggle="collapse" data-target=".menu">&times;</a>
+        <div class="row">
+            <div class="col-9">MENU</div>
+            <div class="col-3 text-right">
+                <a href="#" data-toggle="collapse" data-target=".menu">&times;</a>
+            </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <ul>
-            <li><a href="index.html">Accueil</a></li>
+        <div class="row">
+            <div class="col-12">
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
 
-            <li><a href="page.html">Page 1</a>
-              <ul>
-                <li><a href="page.html">Sous Page 1</a></li>
-                <li><a href="page.html">Sous Page 2</a></li>
-              </ul>
-            </li>
-            <li><a href="page.html">Page 2</a></li>
-            <li><a href="page.html">Page 3</a></li>
-            <li><a href="page.html">Page 4</a></li>
-            <li><a href="page.html">Page 5</a></li>
-          </ul>
+                    <li><a href="page.html">Page 1</a>
+                        <ul>
+                            <li><a href="page.html">Sous Page 1</a></li>
+                            <li><a href="page.html">Sous Page 2</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="page.html">Page 2</a></li>
+                    <li><a href="page.html">Page 3</a></li>
+                    <li><a href="page.html">Page 4</a></li>
+                    <li><a href="page.html">Page 5</a></li>
+                </ul>
+            </div>
         </div>
-      </div>
     </div>
+</main>
 
-  </main>
-  <!-- JS library -->
-  {% block scripts %}
-  <script src="js/amelipro.min.js" type="text/javascript"></script>
-  {% endblock %}
+<!-- JS library -->
+{% block scripts %}
+    <script src="{{ asset('js/amelipro.min.js') }}" type="text/javascript"></script>
+{% endblock %}
 </body>
 
 </html>
