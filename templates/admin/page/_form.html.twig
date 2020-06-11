@@ -2,55 +2,103 @@
 
 {{ form_start(form) }}
 
-    <div class="form-group">
+
+<div class="form-group row">
+    <div class="col-12">
         {{ form_label(form.titre) }}
         {{ form_widget(form.titre) }}
         {{ form_errors(form.titre) }}
-	</div>
+    </div>
+</div>
 
-	<div class="form-group">
-		{{ form_label(form.contenu) }}
-		{{ form_widget(form.contenu) }}
-		{{ form_errors(form.contenu) }}
-	</div>
 
-    <div class="form-group">
+<div class="form-group row">
+    <div class="col-12">
+        {{ form_label(form.contenu) }}
+        {{ form_widget(form.contenu) }}
+        {{ form_errors(form.contenu) }}
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-12">
         {{ form_label(form.parent) }}
         {{ form_widget(form.parent) }}
         {{ form_errors(form.parent) }}
     </div>
+</div>
 
-    <div class="form-group">
+<div class="form-group row">
+    <div class="col-12">
         {{ form_label(form.categorie) }}
         {{ form_widget(form.categorie) }}
         {{ form_errors(form.categorie) }}
     </div>
+</div>
 
-	<div class="form-group">
+<div class="form-group row">
+    <div class="col-12">
         {{ form_label(form.auteur) }}
         {{ form_widget(form.auteur) }}
         {{ form_errors(form.auteur) }}
     </div>
+</div>
 
-    <div class="form-group d-none">
+<div class="form-group row d-none">
+    <div class="col-4">
         {{ form_label(form.createdAt) }}
         {{ form_widget(form.createdAt) }}
         {{ form_errors(form.createdAt) }}
     </div>
+</div>
 
-    <div class="form-group d-none">
-        {{ form_label(form.jourAt) }}
-        {{ form_widget(form.jourAt) }}
-        {{ form_errors(form.jourAt) }}
+<div class="form-group row">
+    <div class="col-4">
+        {{ form_label(form.date) }}
+        {{ form_widget(form.date, {'attr': { 'class': 'datepicker'}}) }}
+        {{ form_errors(form.date) }}
     </div>
+</div>
 
-    <div class="row">
-		<div class="col-6">
-			<a href="{{ path('app_admin_page_index') }}" class="btn btn-default" >Annuler</a>
-		</div>
-		<div class="col-6 text-right">
-			<button type="submit" class="btn btn-success">Envoyer</button>
-		</div>
-	</div>
+<div class="form-group row">
+    <div class="col-4">
+        {{ form_label(form.visible) }}
+        {{ form_widget(form.visible) }}
+        {{ form_errors(form.visible) }}
+    </div>
+</div>
+
+
+
+{% if page is defined %}
+    <div class="card">
+        <div class="card-body no-padding-bottom">
+            {#<h5 class="card-title">Documents</h5>#}
+            <h6 class="card-subtitle mb-2 text-muted">Document(s)</h6>
+            <ul>
+                {% for document in form.documents.vars.choices %}
+                    {% if document.data.page == page %}
+                        <li class="card-text">
+                            <a href="{{ path('app_document_download', {'originalDocument':document.data.originalDocument}) }}">{{ document.data.titre }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endif %}
+
+<div hidden>
+    {{ form_widget(form.documents) }}
+</div>
+
+<div class="row spacer">
+    <div class="col-6">
+        <a href="{{ path('app_admin_page_index') }}" class="btn btn-default">Annuler</a>
+    </div>
+    <div class="col-6 text-right">
+        <button type="submit" class="btn btn-default">Enregistrer</button>
+    </div>
+</div>
 
 {{ form_end(form) }}

@@ -25,7 +25,7 @@ class Page
     private $titre;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $auteur;
 
@@ -35,12 +35,12 @@ class Page
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=false)
      */
-    private $jourAt;
+    private $date;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $contenu;
 
@@ -66,9 +66,13 @@ class Page
      */
     private $documents;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $visible;
+
     public function __construct()
     {
-
         $this->enfants = new ArrayCollection();
         $this->documents = new ArrayCollection();
     }
@@ -115,14 +119,14 @@ class Page
         return $this;
     }
 
-    public function getJourAt(): ?\DateTimeInterface
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->jourAt;
+        return $this->date;
     }
 
-    public function setJourAt(\DateTimeInterface $jourAt): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->jourAt = $jourAt;
+        $this->date = $date;
 
         return $this;
     }
@@ -225,6 +229,18 @@ class Page
                     $document->setPage(null);
                 }
             }
+
+            return $this;
+        }
+
+        public function getVisible(): ?bool
+        {
+            return $this->visible;
+        }
+
+        public function setVisible(?bool $visible): self
+        {
+            $this->visible = $visible;
 
             return $this;
         }

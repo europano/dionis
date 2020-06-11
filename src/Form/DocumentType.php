@@ -3,22 +3,40 @@
 namespace App\Form;
 
 use App\Entity\Document;
+use App\Entity\Page;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class DocumentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('fichier', FileType::class, [
-            //                'mapped'   => false, //@todo A enlever, je l'ai mis pour qu'il ne le prenne pas en compte lors de l'insertion en BDD
-            'required' => false
-    ]);
-        
+            ->add('page', EntityType::class, [
+                'class'        => Page::class,
+                'choice_label' => 'titre',
+                'multiple'     => false,
+                'required'     => false
+            ])
+            ->add('fichier', FileType::class, [
+                'required'    => false,
+//                'constraints' => [
+//                    new File([
+//                        'mimeTypes'        => array_values(Document::LISTE_EXTENSIONS),
+//                        'mimeTypesMessage' => "Format de fichier incorrect",
+//                    ])
+//                ],
+            ])
+            ->add('miniature', CheckboxType::class, [
+                'data'     => false,
+                'required' => false,
+            ])
+        ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

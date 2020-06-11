@@ -15,8 +15,6 @@ class CategorieType extends AbstractType
         $builder
             ->add('titre', ChoiceType::class)
         ;
-
-
     }
 
     public function configureOptions(OptionsResolver $resolver)

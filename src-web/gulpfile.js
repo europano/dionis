@@ -44,6 +44,10 @@ gulp.task('styles', function () {
     var scssFiles = [
         npm + '/charte-amelipro/src/scss/mixins/variables.scss',
         npm + '/bootstrap/scss/bootstrap.scss',
+        npm + '/bootstrap-select/sass/bootstrap-select.scss',
+        npm + '/bootstrap-slider/src/sass/bootstrap-slider.scss',
+        npm + '/bootstrap-sass-datepicker/sass/datepicker.scss',
+        npm + '/@neos21/bootstrap3-glyphicons/assets/stylesheets/_bootstrap3-glyphicons.scss',
         npm + '/charte-amelipro/src/scss/amelipro.scss'
     ];
 
@@ -60,21 +64,21 @@ gulp.task('styles', function () {
 
 
     return gulp.src(mainScssFile)
-            .pipe($.sourcemaps.init({includeContent: false, sourceRoot: './css'}))
-            .pipe($.inject(gulp.src(scssFiles), injectImportOptions))
-            .pipe($.sass().on('error', $.sass.logError))
-            .pipe($.autoprefixer('last 2 version'))
-            .pipe($.rename('amelipro.min.css'))
-            .pipe($.cleanCss())
-            .pipe($.sourcemaps.write('/'))
-            .pipe(gulp.dest(src + 'css/'))
-            .pipe(browserSync.stream())
-            .on('end', function () {
-                $.util.log($.util.colors.yellow('La tache CSS est terminee.'));
-                //$.util.log($.util.colors.yellow(sourceRoot));
-            });
+        .pipe($.sourcemaps.init({includeContent: false, sourceRoot: './css'}))
+        .pipe($.inject(gulp.src(scssFiles), injectImportOptions))
+        .pipe($.sass().on('error', $.sass.logError))
+        .pipe($.autoprefixer('last 2 version'))
+        .pipe($.rename('amelipro.min.css'))
+        .pipe($.cleanCss())
+        .pipe($.sourcemaps.write('/'))
+        .pipe(gulp.dest(src + 'css/'))
+        .pipe(gulp.dest(symfonyWeb + 'css/'))
+        .pipe(browserSync.stream())
+        .on('end', function () {
+            $.util.log($.util.colors.yellow('La tache CSS est terminee.'));
+            //$.util.log($.util.colors.yellow(sourceRoot));
+        });
 });
-
 
 
 // javascript task : Compilation des scripts js
@@ -83,22 +87,26 @@ gulp.task('styles', function () {
 gulp.task('scripts', function () {
 
     return gulp.src([
+            npm + '/jquery/dist/jquery.js',
+            npm + '/bootstrap-select/js/bootstrap-select.js',
+            npm + '/bootstrap-slider/dist/bootstrap-slider.js',
+            npm + '/bootstrap/dist/js/bootstrap.bundle.min.js',
+            npm + '/easy-autocomplete/dist/jquery.easy-autocomplete.js',
+            npm + '/bootstrap-sass-datepicker/js/bootstrap-sass-datepicker.js',
+            npm + '/bootstrap-sass-datepicker/js/locales/bootstrap-datepicker.fr.js',
 
-        npm + '/jquery/dist/jquery.js',
-        npm + '/bootstrap/dist/js/bootstrap.bundle.min.js',
-        src + '/scripts/*.js'
-
-
-    ])
-            .pipe($.sourcemaps.init({includeContent: false, sourceRoot: './js'}))
-            .pipe($.uglify())
-            .pipe($.concat('amelipro.min.js'))
-            .pipe($.sourcemaps.write('/'))
-            .pipe(gulp.dest(src + 'js/'))
-            .pipe(browserSync.stream())
-            .on('end', function () {
-                $.util.log($.util.colors.yellow('La tache JavaScript est terminee.'));
-            });
+            src + '/scripts/*.js'
+        ])
+        .pipe($.sourcemaps.init({includeContent: false, sourceRoot: './js'}))
+        .pipe($.uglify())
+        .pipe($.concat('amelipro.min.js'))
+        .pipe($.sourcemaps.write('/'))
+        .pipe(gulp.dest(src + 'js/'))
+        .pipe(gulp.dest(symfonyWeb + 'js/'))
+        .pipe(browserSync.stream())
+        .on('end', function () {
+            $.util.log($.util.colors.yellow('La tache JavaScript est terminee.'));
+        });
 });
 
 
@@ -112,12 +120,12 @@ gulp.task('html', function () {
     };
 
     return gulp.src([src + '/html/**/*.*html', '!' + src + '/html/partials/**/*.*'])
-            .pipe($.fileInclude({
-                prefix: '@@'
-            }))
-            .pipe($.htmlBeautify(options))
-            .pipe(browserSync.stream())
-            .pipe(gulp.dest(src));
+        .pipe($.fileInclude({
+            prefix: '@@'
+        }))
+        .pipe($.htmlBeautify(options))
+        .pipe(browserSync.stream())
+        .pipe(gulp.dest(src));
 
 });
 
@@ -162,58 +170,58 @@ gulp.task('default', function () {
 /* Création d'une nouvelle page à partir  la charte amelipro */
 gulp.task('new-page', function () {
     return gulp.src(npm + '/charte-amelipro/src/exemple-page.html*')
-            .pipe(gulp.dest(src + 'html/'));
+        .pipe(gulp.dest(src + 'html/'));
 });
 
 
 /* Récupération d'une copie des fonts disponibles dans la charte amelipro*/
 gulp.task('get-fonts', function () {
     return gulp.src(npm + '/charte-amelipro/src/fonts/*')
-            //.pipe(gulp.dest(symfonyWeb + 'fonts/'))
-            .pipe(gulp.dest(src + 'fonts/'));
+        //.pipe(gulp.dest(symfonyWeb + 'fonts/'))
+        .pipe(gulp.dest(src + 'fonts/'));
 });
 
 /* Récupération d'une copie des images disponibles dans la charte amelipro*/
 gulp.task('get-img', function () {
     return gulp.src(npm + '/charte-amelipro/src/img/*')
-            //.pipe(gulp.dest(symfonyWeb + 'img/'))
-            .pipe(gulp.dest(src + 'img/'));
+        //.pipe(gulp.dest(symfonyWeb + 'img/'))
+        .pipe(gulp.dest(src + 'img/'));
 });
 
 
 /* Copier les fichiers html vers le dist*/
 gulp.task('copy-html', function () {
     return gulp.src([src + '**/*.html', '!' + src + '/html/**/*.*'])
-            .pipe(gulp.dest(dist));
+        .pipe(gulp.dest(dist));
 });
 
 /* Copier les fonts vers le dist*/
 gulp.task('copy-font', function () {
     return gulp.src(src + 'fonts/*')
-            .pipe(gulp.dest(dist + 'fonts/'));
+        .pipe(gulp.dest(dist + 'fonts/'));
 });
 
 /* Copier les images vers le dist*/
 gulp.task('copy-img', function () {
     return gulp.src(src + 'img/*')
-            .pipe(gulp.dest(dist + 'img/'));
+        .pipe(gulp.dest(dist + 'img/'));
 });
 
 /* Copier les fichiers js minifiés vers le dist*/
 gulp.task('copy-js', function () {
     return gulp.src(src + 'js/*.min.js')
-            .pipe(gulp.dest(dist + 'js/'));
+        .pipe(gulp.dest(dist + 'js/'));
 });
 
 /* Copier les fichiers css minifiées vers le dist*/
 gulp.task('copy-css', function () {
     return gulp.src(src + 'css/*')
-            .pipe(gulp.dest(dist + 'css/'));
+        .pipe(gulp.dest(dist + 'css/'));
 });
 
 gulp.task('copy-ressources', function () {
     return gulp.src(src + 'ressources/*')
-            .pipe(gulp.dest(dist + 'ressources/'));
+        .pipe(gulp.dest(dist + 'ressources/'));
 });
 
 /* Compilation des Styles et scripts puis génération du dist*/
@@ -221,6 +229,7 @@ gulp.task('dist', function () {
     gulp.start('styles');
     gulp.start('scripts');
     gulp.start('html');
+    gulp.start('ckeditor');
 
 
     gulp.start('copy-font');
@@ -237,7 +246,7 @@ gulp.task('dist', function () {
 gulp.task('copy-to-web', function () {
 
     return gulp.src([src + "js/**.*", src + "fonts/**.*", src + "css/**.*", src + "img/**.*"], {"base": src})
-            .pipe(gulp.dest(symfonyWeb));
+        .pipe(gulp.dest(symfonyWeb));
 });
 
 
@@ -247,5 +256,15 @@ gulp.task('copy-to-design', function () {
     gulp.start('dist');
 
     return gulp.src(dist + "**/*.*", {"base": dist})
-            .pipe(gulp.dest(designSrc));
+        .pipe(gulp.dest(designSrc));
+});
+
+gulp.task('ckeditor', function () {
+    return gulp.src([
+            bower + '/ckeditor-markdown-plugin/markdown/**/*.*'
+        ])
+        .pipe(gulp.dest(symfonyWeb + 'bundles/fosckeditor/plugins/markdown'))
+        .on('end', function () {
+            $.util.log($.util.colors.yellow('La tache JavaScript est terminee.'));
+        });
 });

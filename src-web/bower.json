@@ -1,0 +1,10 @@
+{
+  "name": "aat",
+  "devDependencies": {
+    "bootstrap-sass-datepicker": "1.3.7",
+    "jquery-ui": "1.12.1"
+  },
+  "dependencies": {
+    "ckeditor-markdown-plugin": "*"
+  }
+}

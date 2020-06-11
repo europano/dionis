@@ -9,7 +9,7 @@
 {% block body %}
 
     <div class="row">
-        <div class="col-8 offset-2">
+        <div class="col-7 offset-2">
 
             <div class="vie-des-projets">
 
@@ -17,35 +17,62 @@
 
                 <div class="row spacer">
                     <div class="col-12 text-right">
-                        <a href="{{ path('app_admin_categorie_new') }}"><button class="btn btn-default">NOUVELLE CATÉGORIE</button></a>
+                        <a href="{{ path('app_admin_categorie_new') }}">
+                            <button class="btn btn-default">NOUVELLE CATÉGORIE</button>
+                        </a>
                     </div>
                 </div>
                 <div class="table-responsive spacer">
                     <table class="table table-crud">
                         <thead class="bg-gris-6">
-                            <tr>
-                                <th>CATÉGORIE</th>
-                                <th></th>
-                            </tr>
-                         </thead>
-                         <tbody>
-                             {% for categories in categories %}
-                                 <tr>
-                                    <td>
-                                        <a href="{{ path('app_admin_categorie_edit', {'id': categories.id}) }}">{{ categories.titre }}</a>
-                                    </td>
-                                    <td class="text-right">
-                                        <a href="{{ path('app_admin_categorie_delete', {'id': categories.id}) }}">supprimer</a>
-                                    </td>
-                                 </tr>
-                             {% endfor %}
-                         </tbody>
+                        <tr>
+                            <th>CATÉGORIE</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-                     </table>
-                 </div>
+                        {% set default = [1, 2, 3] %}
+                        {% for categorie in categories %}
+                            <tr>
+                                <td>
+                                    <a href="{{ path('app_admin_categorie_edit', {'id': categorie.id}) }}">{{ categorie.titre }}</a>
+                                </td>
+                                <td class="text-right">
+                                    {% if categorie.id not in default %}
+                                        <a href="{{ path('app_admin_categorie_delete', {'id': categorie.id}) }}" data-toggle="modal" data-target="#modal-categorie-delete">Supprimer</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
 
             </div>
 
-          </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal-categorie-delete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Suppression</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Voulez-vous supprimer cette catégorie?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Non</button>
+                    <button type="button" class="btn btn-default pull-right">Oui</button>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

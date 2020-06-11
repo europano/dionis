@@ -57,6 +57,7 @@ class PageRepository extends ServiceEntityRepository
             ->join('p.parent', 'parent')
             ->join('parent.categorie', 'c')
             ->where('c.titre = :vieDesProjets')->setParameter('vieDesProjets', Categorie::VIE_DES_PROJETS)
+            ->andWhere('p.visible <> :visible')->setParameter('visible', 'false')
             ->orderBy('p.titre', 'ASC')
             ->getQuery()
             ->getResult()
@@ -78,57 +79,7 @@ class PageRepository extends ServiceEntityRepository
         ;
     }
 
-    // /**
-    //  * @return Page[] Returns an array of Page objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-    /**
-    * @return Page[] Returns an array of Page objects
-    */
-    /*
-    public function findOneBySomeField($value): ?Page
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
-    /**
-     * @return Page[] Returns an array of Page objects
-     */
-    /*
-    public function findPagesSansParent()
-    {
-        return $this->createQueryBuilder('p')
-            ->where('p.page_parent IS NULL')
-            ->orderBy('p.id', 'ASC')
-            ->getQuery()
-            ->getResult()
-            ;
-        }
-        */
-
-        /**
-         * @return Page[] Returns an array of Page objects
-         */
-        // requete qui transforme le dql ensql
-
-       public function findLastPages()
+    public function findLastPages()
     {
         $query= "select * from page order by created_at desc limit 3";
               $stmt = $this->getEntityManager()
@@ -139,3 +90,4 @@ class PageRepository extends ServiceEntityRepository
             }
 
      }
+

@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des documents{% endblock %}
+
+{% block header %}
+    {% include('admin/document/_menu.html.twig') %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-8 offset-2">
+            <div class="vie-des-projets">
+                <h2>Liste des documents</h2>
+
+                <div class="row spacer">
+                    <div class="col-12 text-right">
+                        <a href="{{ path('document_new') }}">
+                            <button class="btn btn-default">NOUVEAU DOCUMENT</button>
+                        </a>
+                    </div>
+                </div>
+
+                <table class="table spacer">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Titre</th>
+                        <th>Page</th>
+                        <th>Miniature</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+
+                    {% if documents is defined %}
+                        {% for document in documents %}
+                            <tr>
+                                <td>{{ document.id }}</td>
+                                <td>
+                                    <a href="{{ path('app_document_download', {'originalDocument':document.originalDocument}) }}">
+                                        {{ document.titre }}</a>
+                                </td>
+                                <td>{% if document.page is not null %}{{ document.page.titre }}{% endif %}</td>
+                                <td>
+                                    {% if document.miniature == true %}
+                                        <span class="glyphicon glyphicon-picture"></span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-right">
+                                    <a href="{{ path('document_delete', {'id':document.id}) }}" data-toggle="modal"
+                                       data-target="#modal-document-delete">
+                                        Supprimer</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="2">aucun resultats trouvés</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal-document-delete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Suppression</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Voulez-vous supprimer ce document?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Non</button>
+                    <button type="button" class="btn btn-default pull-right">Oui</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+

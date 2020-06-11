@@ -16,6 +16,9 @@
     "@neos21/bootstrap3-glyphicons": "^1.0.4",
     "@popperjs/core": "^2.2.1",
     "bootstrap": "4.4.1",
+    "bootstrap-sass-datepicker": "^1.0.0",
+    "bootstrap-select": "1.12.4",
+    "bootstrap-slider": "9.8.1",
     "browser-sync": "^2.18.12",
     "btoa": "~1.1.2",
     "charte-amelipro": "git+https://git.digital.cnamts.fr/P2/amelipro.git#amelipro-bootstrap-4",
@@ -49,7 +52,6 @@
     "markdown-it": "^5.0.0",
     "moment": "^2.22.2",
     "npm-shrinkwrap": "^200.4.0",
-    "respond": "0.9.0",
-    "ckeditor": "4.0.0"
+    "respond": "0.9.0"
   }
 }

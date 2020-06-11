@@ -2,6 +2,9 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        uploadDir: 'uploadDir'
+        arbrePage: '@App\BusinessService\ArborescenceBS'
 
     paths:
         '%kernel.project_dir%/vendor/knplabs/knp-paginator-bundle/templates': KnpPaginator
