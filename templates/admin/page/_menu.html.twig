@@ -1,11 +1,11 @@
-<div class="row spacer">
-	<div class="col-2">
-		<p class="font-weight-bold">Pages</p>
-	</div>
-	<div class="col-2">
-		<a href="{{ path('document_index') }}">Documents</a>
-	</div>
-	<div class="col-2">
-		<a href="{{ path('app_admin_categorie_index') }}">Catégories</a>
-	</div>
-</div>
+<ul class="nav nav-tabs">
+	<li class="nav-item">
+		<a class="nav-link active" href="{{ path('app_admin_page_index') }}">Pages</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="{{ path('document_index') }}">Documents</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="{{ path('app_admin_categorie_index') }}">Catégories</a>
+	</li>
+</ul>

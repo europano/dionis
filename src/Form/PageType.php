@@ -5,12 +5,12 @@ namespace App\Form;
 use App\Entity\Categorie;
 use App\Entity\Document;
 use App\Entity\Page;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,11 +23,8 @@ class PageType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('contenu', CKEditorType::class, [
+            ->add('contenu', TextareaType::class, [
                 'required' => false,
-                'config' => [
-                    'extraPlugins' => 'markdown'
-                ],
             ])
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,

@@ -6,8 +6,5 @@ twig:
         uploadDir: 'uploadDir'
         arbrePage: '@App\BusinessService\ArborescenceBS'
 
-    paths:
-        '%kernel.project_dir%/vendor/knplabs/knp-paginator-bundle/templates': KnpPaginator
-
     form_themes:
         - '@FOSCKEditor/Form/ckeditor_widget.html.twig'

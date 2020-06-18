@@ -60,6 +60,7 @@ gulp.task('styles', function () {
     };
 
     gulp.start('get-fonts');
+    gulp.start('markdown');
     //gulp.start('get-img');
 
 
@@ -229,7 +230,7 @@ gulp.task('dist', function () {
     gulp.start('styles');
     gulp.start('scripts');
     gulp.start('html');
-    gulp.start('ckeditor');
+    //gulp.start('ckeditor');
 
 
     gulp.start('copy-font');
@@ -259,12 +260,12 @@ gulp.task('copy-to-design', function () {
         .pipe(gulp.dest(designSrc));
 });
 
-gulp.task('ckeditor', function () {
+gulp.task('markdown', function () {
     return gulp.src([
-            bower + '/ckeditor-markdown-plugin/markdown/**/*.*'
+            npm + '/simplemde/dist/simplemde.min.css'
         ])
-        .pipe(gulp.dest(symfonyWeb + 'bundles/fosckeditor/plugins/markdown'))
+        .pipe(gulp.dest(symfonyWeb + 'css'))
         .on('end', function () {
-            $.util.log($.util.colors.yellow('La tache JavaScript est terminee.'));
+            $.util.log($.util.colors.yellow('La tache est terminee.'));
         });
 });
